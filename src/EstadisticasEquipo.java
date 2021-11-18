@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 public class EstadisticasEquipo {
-    public static int partidosGanados(int[] resultadosGanados){
+    public static int partidosGanados(int[] resultadosGanados){/*Este metodo, una vez recorrido todo el array de resultados, indica el numero de partidos ganados que hay*/
 
         int partidosGanados = 0;
 
@@ -12,7 +12,7 @@ public class EstadisticasEquipo {
         }
         return partidosGanados;
     }
-    public static int partidosPerdidos(int[] resultadosPerdidos){
+    public static int partidosPerdidos(int[] resultadosPerdidos){ //Este metodo, una vez recorrido el array de resultados, me inidicara el numero de partidos perdidos si el numero es igual que 0
 
         int partidosPerdidos = 0;
 
@@ -27,7 +27,7 @@ public class EstadisticasEquipo {
 
         int partidosEmpatados = 0;
 
-        for (int resultadosEmpatado : resultadosEmpatados) {
+        for (int resultadosEmpatado : resultadosEmpatados) { // El bucle for, tal como los anteriores, recorre todo el array para saber si el resultado es igual a 2 y por tanto seria empate.
             if (resultadosEmpatado == 2) {
                 partidosEmpatados++;
             }
@@ -38,36 +38,33 @@ public class EstadisticasEquipo {
 
         System.out.print("{");
         for (int j : resultadosLocal) {
-            if (j % 2 == 0) {
-                System.out.print(j + ",");
+            if (resultadosLocal[j] % 2 == 0) {
+                System.out.print(resultadosLocal[j] + ",");
             }
         }
         System.out.print("}");
         return resultadosLocal;
+
+        /*Este metodo tiene la funcion de indicar si es local o visitante, repasa todo el array y segun la posicion que este,
+          par o impar imprimira el local, en este caso para que filtre el local la posicion debera ser par.*/
     }
     public static int[] filtraPartidosVisitante(int[] resultadosVisitante){
 
         System.out.print("{");
-        for (int i = 0; i < resultadosVisitante.length; i++){
-            if (i % 2 == 1){
-                System.out.print(i + ",");
+        for (int j : resultadosVisitante) {
+            if (j % 3 == 1) {
+                System.out.print(j + ",");
             }
         }
         System.out.print("}");
         return resultadosVisitante;
+        /*Este metodo hace la misma funcion que el anterior pero para que sea visitante la posicion del array debera ser impar.*/
+
     }
 
     public static int calculaPuntos(int partidosGanados, int partidosPerdidos, int partidosEmpatados){
 
-        int puntosTotales = 0;
-
-        partidosGanados = 3;
-        partidosEmpatados = 1;
-        partidosPerdidos = 0;
-
-        puntosTotales = partidosGanados  + partidosEmpatados + partidosPerdidos;
-
-        return puntosTotales;
+        return partidosGanados + partidosPerdidos + partidosEmpatados;
     }
 
     public static void main(String[] args) {
@@ -77,10 +74,14 @@ public class EstadisticasEquipo {
         int numeroPartidos = teclado.nextInt();
         int[] partidos = new int[numeroPartidos];
 
+
+
+
         System.out.println("¿Cuales han sido sus resultados? (1 -> Victoria, 2 -> Derrota, 0 -> Empate)");
         for (int i = 0; i < numeroPartidos; i++){
             partidos[i] = teclado.nextInt();
         }
+
 
         System.out.println("El numero de partidos ganados es de: " + partidosGanados(partidos));
         System.out.println("El numero de partidos perdidos es de: " + partidosPerdidos(partidos));
@@ -90,6 +91,13 @@ public class EstadisticasEquipo {
         System.out.println(" ");
         System.out.print("Los partidos visitantes han sido: ");
         filtraPartidosVisitante(partidos);
+        System.out.println(" ");
+
+        int puntosVictoria = partidosGanados(partidos) * 3;
+        int puntosEmpate = partidosEmpatados(partidos);
+        int puntosDerrota = 0;
+        System.out.print(calculaPuntos(puntosVictoria, puntosEmpate, puntosDerrota));
+
 
     }
 
