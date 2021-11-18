@@ -52,7 +52,7 @@ public class EstadisticasEquipo {
 
         System.out.print("{");
         for (int j : resultadosVisitante) {
-            if (j % 2 == 1) {
+            if (resultadosVisitante[j] % 3 == 1) {
                 System.out.print(resultadosVisitante[j] + ",");
             }
         }
