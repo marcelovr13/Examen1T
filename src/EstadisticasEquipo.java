@@ -17,7 +17,7 @@ public class EstadisticasEquipo {
         int partidosPerdidos = 0;
 
         for (int resultadosPerdido : resultadosPerdidos) {
-            if (resultadosPerdido == 0) {
+            if (resultadosPerdido == 2) {
                 partidosPerdidos++;
             }
         }
@@ -28,7 +28,7 @@ public class EstadisticasEquipo {
         int partidosEmpatados = 0;
 
         for (int resultadosEmpatado : resultadosEmpatados) { // El bucle for, tal como los anteriores, recorre todo el array para saber si el resultado es igual a 2 y por tanto seria empate.
-            if (resultadosEmpatado == 2) {
+            if (resultadosEmpatado == 0) {
                 partidosEmpatados++;
             }
         }
@@ -65,21 +65,45 @@ public class EstadisticasEquipo {
     public static int calculaPuntos(int partidosGanados, int partidosPerdidos, int partidosEmpatados){
 
         return partidosGanados + partidosPerdidos + partidosEmpatados;
+        //Este metodo recoge los partidos ganados, empatados y perdidos y segun el resultado del partido se le añaden 3 puntos, 1 o ninguno.
+    }
+    public static void muestraEstadisticas(int[] resultadosTemporada) {
+        int puntosVictoria = 0;
+        int puntosEmpate = 0;
+        int puntosDerrota = 0;
+        int puntosTotales;
+
+
+        for (int i = 0; i < resultadosTemporada.length; i++) {
+            puntosVictoria = partidosGanados(resultadosTemporada);
+            puntosEmpate = partidosEmpatados(resultadosTemporada);
+            puntosDerrota = partidosPerdidos(resultadosTemporada);
+        }
+        puntosTotales = (puntosVictoria * 3) + puntosEmpate;
+        System.out.println("Puntos totales: " + puntosTotales);
+        System.out.println("Partidos totales ganados: " + puntosVictoria);
+        System.out.println("Partidos totales perdidos: " + puntosDerrota);
+        System.out.println("Partidos totales empatados: " + puntosEmpate);
+
+        //Este metodo mostrara solamente las estadisticas de todos los partidos, ya sea local o visitante.
     }
 
     public static void main(String[] args) {
 
         Scanner teclado = new Scanner(System.in);
         System.out.println("¿Cuantos partidos se han jugado?");
-        int numeroPartidos = teclado.nextInt();
+        int numeroPartidos = teclado.nextInt(); // Se asigna el numero de partidos jugados.
         int[] partidos = new int[numeroPartidos];
+        int puntosVictoria;
+        int puntosEmpate;
+        int puntosDerrota;
 
 
 
 
         System.out.println("¿Cuales han sido sus resultados? (1 -> Victoria, 2 -> Derrota, 0 -> Empate)");
         for (int i = 0; i < numeroPartidos; i++){
-            partidos[i] = teclado.nextInt();
+            partidos[i] = teclado.nextInt(); //Le asignamos en la posicion i, si es una victoria, derrota o empate.
         }
 
 
@@ -93,11 +117,15 @@ public class EstadisticasEquipo {
         filtraPartidosVisitante(partidos);
         System.out.println(" ");
 
-        int puntosVictoria = partidosGanados(partidos) * 3;
-        int puntosEmpate = partidosEmpatados(partidos);
-        int puntosDerrota = 0;
-        System.out.print(calculaPuntos(puntosVictoria, puntosEmpate, puntosDerrota));
 
+        puntosVictoria = partidosGanados(partidos) * 3; //Se multiplica por 3 los partidos ganados asi se obtiene la suma de puntos correctamente.
+        puntosEmpate = partidosEmpatados(partidos); // Los empates valen 1 punto.
+        puntosDerrota = 0; //Las derrotas ninguna.
+
+        System.out.print("Los puntos totales han sido de: " + calculaPuntos(puntosVictoria, puntosEmpate, puntosDerrota));
+        System.out.println(" ");
+        System.out.println(" ");
+        muestraEstadisticas(partidos);
 
     }
 
