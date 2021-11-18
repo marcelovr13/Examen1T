@@ -52,8 +52,8 @@ public class EstadisticasEquipo {
 
         System.out.print("{");
         for (int j : resultadosVisitante) {
-            if (j % 3 == 1) {
-                System.out.print(j + ",");
+            if (j % 2 == 1) {
+                System.out.print(resultadosVisitante[j] + ",");
             }
         }
         System.out.print("}");
